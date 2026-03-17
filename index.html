@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informe de Rendimentos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="icon">📄</div>
+      <h1>Informe de Rendimentos</h1>
+      <p>Consulte e baixe seus informes</p>
+      <span class="badge">Versão pronta para subir na Vercel</span>
+    </header>
+
+    <div class="tabs">
+      <button id="tabConsulta" class="tab active">Área do colaborador</button>
+      <button id="tabAdmin" class="tab">Área administrativa</button>
+    </div>
+
+    <section id="consultaView" class="card">
+      <div class="alert warning">
+        <strong>Aviso importante</strong>
+        <p>Em 2025 houve mudança de contabilidade. Por isso, existem dois Informes de Rendimentos referentes a esse período. Para sua declaração de imposto de renda, é importante baixar e conferir os dois documentos.</p>
+      </div>
+
+      <label class="label">Digite seu CPF</label>
+      <input id="cpfInput" class="input" type="text" placeholder="000.000.000-00" inputmode="numeric" />
+      <button id="consultarBtn" class="btn primary">Consultar</button>
+
+      <div id="consultaResultado" class="result"></div>
+    </section>
+
+    <section id="adminLoginView" class="card hidden">
+      <div class="alert info">
+        <strong>Login do administrador</strong>
+        <p>Apenas usuários autorizados podem importar a planilha e fazer upload em lote dos informes.</p>
+      </div>
+
+      <label class="label">E-mail</label>
+      <input id="adminEmail" class="input" type="email" placeholder="financeiro@grafigel.com.br" />
+
+      <label class="label">Senha</label>
+      <input id="adminSenha" class="input" type="password" placeholder="Digite sua senha" />
+
+      <button id="loginBtn" class="btn dark">Entrar na área administrativa</button>
+    </section>
+
+    <section id="adminView" class="card hidden">
+      <div class="adminTop">
+        <div class="alert info grow">
+          <strong>Administrador autenticado</strong>
+          <p>Importe a planilha real antes de processar os PDFs. Isso reduz drasticamente as pendências.</p>
+        </div>
+        <button id="sairBtn" class="btn light">Sair</button>
+      </div>
+
+      <div class="stat stat-info">
+        <span>Colaboradores disponíveis na base</span>
+        <strong id="baseCount">0</strong>
+      </div>
+
+      <div class="grid">
+        <div class="panel">
+          <h3>Importar base de colaboradores</h3>
+          <p>Selecione a planilha Excel com nome e CPF. Ela será lida de verdade no navegador.</p>
+          <input id="excelInput" type="file" accept=".xlsx,.xls,.csv" hidden />
+          <button id="selecionarExcelBtn" class="btn light dashed">Clique para selecionar o Excel</button>
+          <button id="enviarPlanilhaBtn" class="btn dark">Enviar planilha</button>
+        </div>
+
+        <div class="panel">
+          <h3>Upload em lote dos PDFs</h3>
+          <p>Depois de importar a planilha, selecione todos os PDFs e processe o lote.</p>
+          <input id="pdfInput" type="file" accept=".pdf" multiple hidden />
+          <button id="selecionarPdfsBtn" class="btn light dashed">Clique para selecionar os PDFs</button>
+          <button id="processarPdfsBtn" class="btn primary">Enviar e processar PDFs</button>
+          <div id="pdfHint" class="small muted"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Resultado do processamento</h3>
+        <div class="stats">
+          <div class="stat"><span>Arquivos enviados</span><strong id="statEnviados">0</strong></div>
+          <div class="stat stat-success"><span>Vinculados com sucesso</span><strong id="statVinculados">0</strong></div>
+          <div class="stat stat-warning"><span>Pendências para revisar</span><strong id="statPendencias">0</strong></div>
+        </div>
+        <div id="sucessoBox"></div>
+        <div id="pendenciaBox"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
