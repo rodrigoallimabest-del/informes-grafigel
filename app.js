@@ -281,9 +281,12 @@ function normalizarNome(nome) {
 
 function montarArquivosDoColaborador(nome) {
   const nomeBase = normalizarNome(nome);
+
   return [
     { titulo: 'Informe 1', arquivo: `${nomeBase}_1.pdf` },
-    { titulo: 'Informe 2', arquivo: `${nomeBase}_2.pdf` }
+    { titulo: 'Continuação Informe 1', arquivo: `${nomeBase}_1.1.pdf` },
+    { titulo: 'Informe 2', arquivo: `${nomeBase}_2.pdf` },
+    { titulo: 'Continuação Informe 2', arquivo: `${nomeBase}_2.1.pdf` }
   ];
 }
 
@@ -330,19 +333,8 @@ function renderResultado(colaborador) {
 
 function consultarCPF() {
   const input = document.getElementById('cpfInput');
-  const cpfOriginal = input ? input.value : '';
-  const cpf = limparCPF(cpfOriginal);
-
-  console.log('CPF digitado:', cpfOriginal);
-  console.log('CPF limpo:', cpf);
-  console.log('Total de colaboradores:', state.colaboradores.length);
-  console.log('Teste Rodrigo:', state.colaboradores.find((item) => item.cpf === '03528645150'));
-  console.log('Teste Gabriel:', state.colaboradores.find((item) => item.cpf === '70777402150'));
-
-  const colaborador = state.colaboradores.find((item) => String(item.cpf).trim() === String(cpf).trim());
-
-  console.log('Encontrado na busca:', colaborador);
-
+  const cpf = limparCPF(input.value);
+  const colaborador = state.colaboradores.find((item) => item.cpf === cpf);
   renderResultado(colaborador);
 }
 
