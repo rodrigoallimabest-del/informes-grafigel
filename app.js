@@ -1,3 +1,4 @@
+const DOWNLOAD_BASE_URL = "https://dapper-marigold-f1af05.netlify.app";
 const state = {
   modo: 'consulta',
   adminLogado: false,
@@ -201,23 +202,9 @@ function renderConsultaResultado() {
 }
 
 function handleDownload(nomeArquivo) {
-  const arquivoLocal = state.arquivosDisponiveis.find((item) => item.nome === nomeArquivo)
-    || state.arquivosDisponiveis.find((item) => normalizarNomeBase(item.nome) === normalizarNomeBase(nomeArquivo));
-
-  if (!arquivoLocal) {
-    alert(`O arquivo ${nomeArquivo} não está disponível nesta sessão. Volte na área administrativa, selecione os PDFs novamente, clique em \"Enviar e processar PDFs\" e depois faça a consulta.`);
-    return;
-  }
-
-  const link = document.createElement('a');
-  link.href = arquivoLocal.url;
-  link.download = arquivoLocal.nome;
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.click();
-  setTimeout(() => {
-    if (document.body.contains(link)) document.body.removeChild(link);
-  }, 0);
+  const base = "https://dapper-marigold-f1af05.netlify.app";
+  const url = `${base}/${encodeURIComponent(nomeArquivo)}`;
+  window.open(url, '_blank');
 }
 
 async function handleEnviarPlanilha() {
