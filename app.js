@@ -1,11 +1,5 @@
 const DOWNLOAD_BASE_URL = "https://dapper-marigold-f1af05.netlify.app";
 const state = {
-  modo: 'consulta',
-  adminLogado: false,
-  arquivoBase: null,
-  arquivosPdf: [],
-  arquivosDisponiveis: [],
-  baseImportada: false,
   colaboradores: [
   { cpf: '60250660350', nome: 'ADONIAS DE SOUSA OLIVEIRA', arquivos: [] },
   { cpf: '70715415158', nome: 'ADRIEL MACHADO NETO', arquivos: [] },
