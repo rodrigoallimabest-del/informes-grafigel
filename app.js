@@ -279,15 +279,85 @@ function normalizarNome(nome) {
     .toUpperCase();
 }
 
-function montarArquivosDoColaborador(nome) {
-  const nomeBase = normalizarNome(nome);
+const colaboradoresComContinuacao1 = [
+  '70234757108',
+  '02424465150',
+  '04201872432',
+  '04515070100',
+  '00887570135',
+  '06040193190',
+  '00600191150',
+  '54844932187',
+  '00866112162',
+  '03122949130',
+  '79625711104',
+  '87529483153',
+  '00628240155',
+  '04655428406',
+  '00438991109',
+  '02408892155',
+  '42739365187',
+  '60581108310',
+  '89350731134',
+  '03013802103',
+  '96175532104',
+  '89027574120',
+  '84639342187',
+  '04317627167',
+  '46727272115',
+  '95070940163',
+  '70097505137',
+  '80914462172'
+];
 
-  return [
+const colaboradoresComContinuacao2 = [
+  '70234757108',
+  '02424465150',
+  '04201872432',
+  '04515070100',
+  '00887570135',
+  '06040193190',
+  '00600191150',
+  '54844932187',
+  '00866112162',
+  '03122949130',
+  '79625711104',
+  '87529483153',
+  '00628240155',
+  '04655428406',
+  '00438991109',
+  '02408892155',
+  '42739365187',
+  '60581108310',
+  '89350731134',
+  '03013802103',
+  '96175532104',
+  '89027574120',
+  '84639342187'
+];
+
+function montarArquivosDoColaborador(colaborador) {
+  const nomeBase = normalizarNome(colaborador.nome);
+  const arquivos = [
     { titulo: 'Informe 1', arquivo: `${nomeBase}_1.pdf` },
-    { titulo: 'Continuação Informe 1', arquivo: `${nomeBase}_1.1.pdf` },
-    { titulo: 'Informe 2', arquivo: `${nomeBase}_2.pdf` },
-    { titulo: 'Continuação Informe 2', arquivo: `${nomeBase}_2.1.pdf` }
+    { titulo: 'Informe 2', arquivo: `${nomeBase}_2.pdf` }
   ];
+
+  if (colaboradoresComContinuacao1.includes(colaborador.cpf)) {
+    arquivos.splice(1, 0, {
+      titulo: 'Continuação Informe 1',
+      arquivo: `${nomeBase}_1.1.pdf`
+    });
+  }
+
+  if (colaboradoresComContinuacao2.includes(colaborador.cpf)) {
+    arquivos.push({
+      titulo: 'Continuação Informe 2',
+      arquivo: `${nomeBase}_2.1.pdf`
+    });
+  }
+
+  return arquivos;
 }
 
 function handleDownload(nomeArquivo) {
@@ -308,7 +378,7 @@ function renderResultado(colaborador) {
     return;
   }
 
-  const arquivos = montarArquivosDoColaborador(colaborador.nome);
+  const arquivos = montarArquivosDoColaborador(colaborador);
 
   resultado.innerHTML = `
     <div class="alert success">
